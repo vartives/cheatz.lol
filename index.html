@@ -3,535 +3,520 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Login | Modern Auth</title>
+    <title>Modern Login & Sign Up</title>
     <style>
         :root {
-            --bg-primary: #121212;
-            --bg-secondary: #1e1e1e;
-            --text-primary: #ffffff;
-            --text-secondary: #b3b3b3;
-            --accent: #7289da;
-            --accent-hover: #5f73bc;
-            --error: #ff5252;
-            --success: #4ade80;
-            --input-bg: #2a2a2a;
+            --bg-color: #121212;
             --card-bg: #1e1e1e;
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --text: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border: #2e2e2e;
+            --danger: #ef4444;
+            --success: #10b981;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
-        
+
         body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
+            background-color: var(--bg-color);
+            color: var(--text);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            min-height: 100vh;
+            padding: 1rem;
         }
-        
+
         .container {
             width: 100%;
-            max-width: 420px;
+            max-width: 400px;
         }
-        
+
         .card {
             background-color: var(--card-bg);
             border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
-        }
-        
-        h1 {
-            font-size: 28px;
-            margin-bottom: 24px;
-            text-align: center;
-        }
-        
-        .tabs {
-            display: flex;
-            margin-bottom: 24px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .tab {
-            flex: 1;
-            text-align: center;
-            padding: 12px;
-            cursor: pointer;
-            font-weight: 500;
-            color: var(--text-secondary);
-            position: relative;
-            transition: color 0.3s;
-        }
-        
-        .tab.active {
-            color: var(--accent);
-        }
-        
-        .tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
             width: 100%;
-            height: 2px;
-            background-color: var(--accent);
         }
-        
-        form {
-            display: none;
+
+        .logo {
+            margin-bottom: 1.5rem;
+            text-align: center;
         }
-        
-        form.active {
-            display: block;
+
+        .logo svg {
+            height: 40px;
+            width: auto;
         }
-        
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 1rem;
         }
-        
+
         label {
             display: block;
-            margin-bottom: 8px;
-            color: var(--text-secondary);
-            font-size: 14px;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
         }
-        
+
         input {
             width: 100%;
-            padding: 12px 16px;
+            padding: 0.75rem 1rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
             border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background-color: var(--input-bg);
-            color: var(--text-primary);
-            font-size: 16px;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            color: var(--text);
+            font-size: 1rem;
+            transition: all 0.2s ease;
         }
-        
+
         input:focus {
             outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 2px rgba(114, 137, 218, 0.25);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
         }
-        
+
         button {
             width: 100%;
-            padding: 14px;
-            border-radius: 8px;
-            border: none;
-            background-color: var(--accent);
+            padding: 0.75rem 1rem;
+            background-color: var(--primary);
             color: white;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.1s;
-            margin-top: 8px;
-        }
-        
-        button:hover {
-            background-color: var(--accent-hover);
-        }
-        
-        button:active {
-            transform: scale(0.98);
-        }
-        
-        .message {
-            margin-top: 16px;
-            padding: 12px;
+            border: none;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .footer {
+            margin-top: 1.5rem;
             text-align: center;
-            display: none;
+            font-size: 0.875rem;
+            color: var(--text-muted);
         }
-        
-        .message.error {
-            background-color: rgba(255, 82, 82, 0.15);
-            color: var(--error);
-            border: 1px solid rgba(255, 82, 82, 0.3);
-            display: block;
-        }
-        
-        .message.success {
-            background-color: rgba(74, 222, 128, 0.15);
-            color: var(--success);
-            border: 1px solid rgba(74, 222, 128, 0.3);
-            display: block;
-        }
-        
-        .form-footer {
-            margin-top: 24px;
-            text-align: center;
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-        
-        .form-footer a {
-            color: var(--accent);
+
+        .footer a {
+            color: var(--primary);
             text-decoration: none;
+            font-weight: 500;
         }
-        
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .card-switcher {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .card-switcher a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        .card-switcher a:hover {
+            text-decoration: underline;
+        }
+
+        .notification {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .notification.error {
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        .notification.success {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
         .verification-form {
             display: none;
         }
 
-        .verification-form.show {
-            display: block;
-        }
-
-        .loader {
-            display: none;
-            width: 24px;
-            height: 24px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
+        /* For spinner on button */
+        .spinner {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            border-top-color: var(--text-primary);
+            border-top-color: white;
             animation: spin 1s ease-in-out infinite;
-            margin: 0 auto;
+            margin-right: 0.5rem;
         }
 
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
 
-        .btn-with-loader {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .btn-with-loader .loader {
-            display: none;
-        }
-
-        .btn-with-loader.loading .loader {
+        /* For showing active state */
+        .active {
             display: block;
         }
 
-        .btn-with-loader.loading span {
+        /* Hide elements */
+        .hidden {
             display: none;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="card">
-            <h1>Welcome Back</h1>
+        <!-- Login Form -->
+        <div class="card" id="loginCard">
+            <div class="logo">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h1>Welcome back</h1>
+
+            <div id="loginNotification" class="notification hidden"></div>
             
-            <div class="tabs">
-                <div class="tab active" data-form="login-form">Login</div>
-                <div class="tab" data-form="signup-form">Sign Up</div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" placeholder="your@email.com" required autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password">
+                </div>
+                <button type="submit" id="loginButton">
+                    Log in
+                </button>
+            </form>
+            
+            <div class="card-switcher">
+                <a href="#" id="showSignup">Don't have an account? Sign up</a>
+            </div>
+        </div>
+
+        <!-- Signup Form -->
+        <div class="card hidden" id="signupCard">
+            <div class="logo">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h1>Create your account</h1>
+
+            <div id="signupNotification" class="notification hidden"></div>
+            
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupName">Name</label>
+                    <input type="text" id="signupName" placeholder="John Doe" required autocomplete="name">
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" placeholder="your@email.com" required autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="••••••••" required autocomplete="new-password" minlength="8">
+                </div>
+                <button type="submit" id="signupButton">
+                    Sign up
+                </button>
+            </form>
+            
+            <div class="card-switcher">
+                <a href="#" id="showLogin">Already have an account? Log in</a>
+            </div>
+        </div>
+
+        <!-- Verification Form (shown after signup) -->
+        <div class="card hidden" id="verificationCard">
+            <div class="logo">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h1>Email Verification</h1>
+
+            <div id="verificationNotification" class="notification success">
+                We've sent a verification code to your email.
             </div>
             
-            <!-- Login Form -->
-            <form id="login-form" class="active">
+            <form id="verificationForm">
                 <div class="form-group">
-                    <label for="login-email">Email</label>
-                    <input type="email" id="login-email" placeholder="your@email.com" required>
+                    <label for="verificationCode">Verification Code</label>
+                    <input type="text" id="verificationCode" placeholder="Enter 6-digit code" required maxlength="6" pattern="[0-9]{6}">
                 </div>
-                
-                <div class="form-group">
-                    <label for="login-password">Password</label>
-                    <input type="password" id="login-password" placeholder="••••••••" required>
-                </div>
-                
-                <button type="submit" class="btn-with-loader">
-                    <div class="loader"></div>
-                    <span>Login</span>
+                <button type="submit" id="verifyButton">
+                    Verify
                 </button>
-                
-                <div id="login-message" class="message"></div>
-                
-                <div class="form-footer">
-                    <a href="#" id="forgot-password">Forgot your password?</a>
-                </div>
             </form>
             
-            <!-- Signup Form -->
-            <form id="signup-form">
-                <div class="form-group">
-                    <label for="signup-email">Email</label>
-                    <input type="email" id="signup-email" placeholder="your@email.com" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="signup-password">Password</label>
-                    <input type="password" id="signup-password" placeholder="••••••••" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="signup-confirm">Confirm Password</label>
-                    <input type="password" id="signup-confirm" placeholder="••••••••" required>
-                </div>
-                
-                <button type="submit" class="btn-with-loader">
-                    <div class="loader"></div>
-                    <span>Sign Up</span>
-                </button>
-                
-                <div id="signup-message" class="message"></div>
-            </form>
-
-            <!-- Verification Form (For 2FA) -->
-            <form id="verification-form" class="verification-form">
-                <div class="form-group">
-                    <label for="verification-code">Verification Code</label>
-                    <input type="text" id="verification-code" placeholder="Enter 6-digit code" required>
-                </div>
-                
-                <button type="submit" class="btn-with-loader">
-                    <div class="loader"></div>
-                    <span>Verify</span>
-                </button>
-                
-                <div id="verification-message" class="message"></div>
-                
-                <div class="form-footer">
-                    <p>Check your email for the verification code.<br> 
-                    <a href="#" id="resend-code">Resend code</a></p>
-                </div>
-            </form>
+            <div class="card-switcher">
+                <a href="#" id="resendCode">Didn't get a code? Resend</a>
+            </div>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Tab switching
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    // Remove active class from all tabs and forms
-                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                    document.querySelectorAll('form').forEach(f => f.classList.remove('active'));
-                    
-                    // Add active class to clicked tab and corresponding form
-                    tab.classList.add('active');
-                    const formId = tab.getAttribute('data-form');
-                    document.getElementById(formId).classList.add('active');
-                    
-                    // Clear messages
-                    document.querySelectorAll('.message').forEach(msg => {
-                        msg.textContent = '';
-                        msg.className = 'message';
-                    });
+        // API endpoint
+        const API_URL = 'https://localhost:3000';
+        
+        // DOM Elements
+        const loginCard = document.getElementById('loginCard');
+        const signupCard = document.getElementById('signupCard');
+        const verificationCard = document.getElementById('verificationCard');
+        
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const verificationForm = document.getElementById('verificationForm');
+        
+        const loginButton = document.getElementById('loginButton');
+        const signupButton = document.getElementById('signupButton');
+        const verifyButton = document.getElementById('verifyButton');
+        
+        const showSignup = document.getElementById('showSignup');
+        const showLogin = document.getElementById('showLogin');
+        const resendCode = document.getElementById('resendCode');
+        
+        const loginNotification = document.getElementById('loginNotification');
+        const signupNotification = document.getElementById('signupNotification');
+        const verificationNotification = document.getElementById('verificationNotification');
+
+        // Store email for verification
+        let currentEmail = '';
+        
+        // Show loading state on buttons
+        function setButtonLoading(button, isLoading) {
+            if (isLoading) {
+                button.disabled = true;
+                button.innerHTML = `<span class="spinner"></span> Please wait...`;
+            } else {
+                button.disabled = false;
+                button.innerHTML = button.getAttribute('data-original-text') || button.innerHTML.replace('<span class="spinner"></span> Please wait...', '');
+            }
+        }
+        
+        // Show notification
+        function showNotification(element, message, type) {
+            element.textContent = message;
+            element.className = `notification ${type}`;
+            element.classList.remove('hidden');
+            
+            // Auto hide after 5 seconds for success messages
+            if (type === 'success') {
+                setTimeout(() => {
+                    element.classList.add('hidden');
+                }, 5000);
+            }
+        }
+        
+        // Card navigation
+        showSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginCard.classList.add('hidden');
+            signupCard.classList.remove('hidden');
+            loginNotification.classList.add('hidden');
+        });
+        
+        showLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            signupCard.classList.add('hidden');
+            loginCard.classList.remove('hidden');
+            signupNotification.classList.add('hidden');
+        });
+        
+        // Login form submission
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Store original button text
+            loginButton.setAttribute('data-original-text', loginButton.innerHTML);
+            setButtonLoading(loginButton, true);
+            
+            try {
+                const response = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password }),
+                    credentials: 'include'
                 });
-            });
-
-            // Login form submission
-            const loginForm = document.getElementById('login-form');
-            loginForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const loginButton = loginForm.querySelector('button');
-                loginButton.classList.add('loading');
                 
-                const email = document.getElementById('login-email').value;
-                const password = document.getElementById('login-password').value;
-                const messageEl = document.getElementById('login-message');
+                const data = await response.json();
                 
-                try {
-                    const response = await fetch('/api/auth/login', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ email, password }),
-                    });
-                    
-                    const data = await response.json();
-                    
-                    if (response.ok) {
-                        messageEl.textContent = 'Login successful!';
-                        messageEl.className = 'message success';
-                        
-                        // Store token and redirect user
-                        localStorage.setItem('authToken', data.token);
-                        
-                        // In a real app, redirect to dashboard
-                        // window.location.href = '/dashboard';
-                        
-                    } else {
-                        if (data.requiresVerification) {
-                            // Show 2FA verification form
-                            document.querySelectorAll('form').forEach(f => f.classList.remove('active'));
-                            document.getElementById('verification-form').classList.add('show');
-                            
-                            // Store email for verification
-                            sessionStorage.setItem('verifyingEmail', email);
-                            
-                        } else {
-                            messageEl.textContent = data.message || 'Login failed';
-                            messageEl.className = 'message error';
-                        }
-                    }
-                } catch (error) {
-                    messageEl.textContent = 'Server error. Please try again later.';
-                    messageEl.className = 'message error';
-                    console.error('Login error:', error);
+                if (!response.ok) {
+                    throw new Error(data.message || 'Login failed');
                 }
                 
-                loginButton.classList.remove('loading');
-            });
-
-            // Signup form submission
-            const signupForm = document.getElementById('signup-form');
-            signupForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const signupButton = signupForm.querySelector('button');
-                signupButton.classList.add('loading');
+                // Store token and redirect
+                localStorage.setItem('token', data.token);
+                showNotification(loginNotification, 'Login successful! Redirecting...', 'success');
                 
-                const email = document.getElementById('signup-email').value;
-                const password = document.getElementById('signup-password').value;
-                const confirmPassword = document.getElementById('signup-confirm').value;
-                const messageEl = document.getElementById('signup-message');
+                // Redirect to dashboard
+                setTimeout(() => {
+                    window.location.href = '/dashboard.html';
+                }, 1000);
                 
-                // Check if passwords match
-                if (password !== confirmPassword) {
-                    messageEl.textContent = 'Passwords do not match';
-                    messageEl.className = 'message error';
-                    signupButton.classList.remove('loading');
-                    return;
+            } catch (error) {
+                showNotification(loginNotification, error.message, 'error');
+            } finally {
+                setButtonLoading(loginButton, false);
+            }
+        });
+        
+        // Signup form submission
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            
+            // Store original button text
+            signupButton.setAttribute('data-original-text', signupButton.innerHTML);
+            setButtonLoading(signupButton, true);
+            
+            try {
+                const response = await fetch(`${API_URL}/auth/signup`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, email, password }),
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.message || 'Signup failed');
                 }
                 
-                try {
-                    const response = await fetch('/api/auth/signup', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ email, password }),
-                    });
-                    
-                    const data = await response.json();
-                    
-                    if (response.ok) {
-                        messageEl.textContent = 'Verification email sent! Check your inbox.';
-                        messageEl.className = 'message success';
-                        
-                        // Show verification form
-                        document.querySelectorAll('form').forEach(f => f.classList.remove('active'));
-                        document.getElementById('verification-form').classList.add('show');
-                        
-                        // Store email for verification
-                        sessionStorage.setItem('verifyingEmail', email);
-                        
-                    } else {
-                        messageEl.textContent = data.message || 'Signup failed';
-                        messageEl.className = 'message error';
-                    }
-                } catch (error) {
-                    messageEl.textContent = 'Server error. Please try again later.';
-                    messageEl.className = 'message error';
-                    console.error('Signup error:', error);
+                // Store email for verification
+                currentEmail = email;
+                
+                // Show verification card
+                signupCard.classList.add('hidden');
+                verificationCard.classList.remove('hidden');
+                
+            } catch (error) {
+                showNotification(signupNotification, error.message, 'error');
+            } finally {
+                setButtonLoading(signupButton, false);
+            }
+        });
+        
+        // Verification form submission
+        verificationForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const code = document.getElementById('verificationCode').value;
+            
+            // Store original button text
+            verifyButton.setAttribute('data-original-text', verifyButton.innerHTML);
+            setButtonLoading(verifyButton, true);
+            
+            try {
+                const response = await fetch(`${API_URL}/auth/verify`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email: currentEmail, code }),
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.message || 'Verification failed');
                 }
                 
-                signupButton.classList.remove('loading');
-            });
-
-            // Verification form submission
-            const verificationForm = document.getElementById('verification-form');
-            verificationForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const verifyButton = verificationForm.querySelector('button');
-                verifyButton.classList.add('loading');
+                // Store token and redirect
+                localStorage.setItem('token', data.token);
+                showNotification(verificationNotification, 'Account verified successfully! Redirecting...', 'success');
                 
-                const code = document.getElementById('verification-code').value;
-                const email = sessionStorage.getItem('verifyingEmail');
-                const messageEl = document.getElementById('verification-message');
+                // Redirect to dashboard
+                setTimeout(() => {
+                    window.location.href = '/dashboard.html';
+                }, 1000);
                 
-                try {
-                    const response = await fetch('/api/auth/verify', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ email, code }),
-                    });
-                    
-                    const data = await response.json();
-                    
-                    if (response.ok) {
-                        messageEl.textContent = 'Verification successful!';
-                        messageEl.className = 'message success';
-                        
-                        // Store token and redirect user
-                        localStorage.setItem('authToken', data.token);
-                        
-                        // In a real app, redirect to dashboard
-                        // window.location.href = '/dashboard';
-                        
-                        setTimeout(() => {
-                            // Return to login form
-                            document.getElementById('verification-form').classList.remove('show');
-                            document.getElementById('login-form').classList.add('active');
-                            document.querySelectorAll('.tab')[0].classList.add('active');
-                            document.querySelectorAll('.tab')[1].classList.remove('active');
-                            
-                            const loginMessage = document.getElementById('login-message');
-                            loginMessage.textContent = 'Account verified! You can now log in.';
-                            loginMessage.className = 'message success';
-                        }, 2000);
-                        
-                    } else {
-                        messageEl.textContent = data.message || 'Verification failed';
-                        messageEl.className = 'message error';
-                    }
-                } catch (error) {
-                    messageEl.textContent = 'Server error. Please try again later.';
-                    messageEl.className = 'message error';
-                    console.error('Verification error:', error);
+            } catch (error) {
+                showNotification(verificationNotification, error.message, 'error');
+            } finally {
+                setButtonLoading(verifyButton, false);
+            }
+        });
+        
+        // Resend verification code
+        resendCode.addEventListener('click', async (e) => {
+            e.preventDefault();
+            
+            try {
+                const response = await fetch(`${API_URL}/auth/resend-code`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email: currentEmail }),
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.message || 'Failed to resend code');
                 }
                 
-                verifyButton.classList.remove('loading');
-            });
-
-            // Resend verification code
-            document.getElementById('resend-code').addEventListener('click', async (e) => {
-                e.preventDefault();
-                const email = sessionStorage.getItem('verifyingEmail');
-                const messageEl = document.getElementById('verification-message');
+                showNotification(verificationNotification, 'Verification code resent!', 'success');
                 
-                if (!email) {
-                    messageEl.textContent = 'Session expired. Please try again.';
-                    messageEl.className = 'message error';
-                    return;
-                }
-                
-                try {
-                    const response = await fetch('/api/auth/resend', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ email }),
-                    });
-                    
-                    const data = await response.json();
-                    
-                    if (response.ok) {
-                        messageEl.textContent = 'Verification code resent!';
-                        messageEl.className = 'message success';
-                    } else {
-                        messageEl.textContent = data.message || 'Failed to resend code';
-                        messageEl.className = 'message error';
-                    }
-                } catch (error) {
-                    messageEl.textContent = 'Server error. Please try again later.';
-                    messageEl.className = 'message error';
-                }
-            });
+            } catch (error) {
+                showNotification(verificationNotification, error.message, 'error');
+            }
         });
     </script>
 </body>

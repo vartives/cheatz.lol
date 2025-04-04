@@ -1,1 +1,310 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magnificent Mangoes</title>
+    <style>
+        :root {
+            --primary: #ff9f1c;
+            --secondary: #ffbf69;
+            --light: #fff7eb;
+            --dark: #613400;
+            --accent: #2ec4b6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 2rem 0;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .hero img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 50%;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            margin-bottom: 2rem;
+        }
+        
+        .hero-text {
+            max-width: 800px;
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin: 2rem 0 1rem;
+            font-size: 2.2rem;
+        }
+        
+        .features {
+            background-color: white;
+            padding: 4rem 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-card {
+            background-color: var(--light);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-card h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .varieties {
+            padding: 4rem 0;
+        }
+        
+        .variety-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .variety-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .variety-card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .variety-img {
+            height: 200px;
+            background-color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+        
+        .variety-info {
+            padding: 1.5rem;
+        }
+        
+        .variety-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .recipes {
+            background-color: var(--secondary);
+            padding: 4rem 0;
+            color: var(--dark);
+        }
+        
+        .recipe-list {
+            margin-top: 2rem;
+        }
+        
+        .recipe-item {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .recipe-item h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #26a69a;
+        }
+        
+        @media (max-width: 768px) {
+            .features-grid,
+            .variety-list {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Magnificent Mangoes</h1>
+            <p>Nature's Sweet Tropical Delight</p>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <img src="/api/placeholder/400/400" alt="Fresh Mango" />
+            <div class="hero-text">
+                <h2>The King of Fruits</h2>
+                <p>Mangoes are one of the most popular and beloved fruits worldwide, known for their sweet, tropical flavor and juicy texture. With over 500 varieties grown globally, these delicious fruits have been cultivated for thousands of years.</p>
+                <a href="#varieties" class="btn">Explore Varieties</a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="features">
+        <div class="container">
+            <h2>Why Mangoes Are Amazing</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Nutritional Powerhouse</h3>
+                    <p>Mangoes are packed with vitamins A and C, potassium, fiber, and antioxidants that support immune health and vision.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Versatile Ingredient</h3>
+                    <p>From smoothies and salads to chutneys and desserts, mangoes can be incorporated into countless delicious recipes.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Year-round Availability</h3>
+                    <p>Different varieties of mangoes are harvested at different times throughout the year, making them available in many regions year-round.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="varieties" id="varieties">
+        <div class="container">
+            <h2>Popular Mango Varieties</h2>
+            <div class="variety-list">
+                <div class="variety-card">
+                    <div class="variety-img">🥭</div>
+                    <div class="variety-info">
+                        <h3>Alphonso</h3>
+                        <p>Known as the "King of Mangoes," this Indian variety is famous for its rich, creamy flavor and smooth texture.</p>
+                    </div>
+                </div>
+                <div class="variety-card">
+                    <div class="variety-img">🥭</div>
+                    <div class="variety-info">
+                        <h3>Ataulfo</h3>
+                        <p>Also known as honey or champagne mango, this Mexican variety is sweet with a buttery texture and small pit.</p>
+                    </div>
+                </div>
+                <div class="variety-card">
+                    <div class="variety-img">🥭</div>
+                    <div class="variety-info">
+                        <h3>Kent</h3>
+                        <p>A large, juicy variety with minimal fiber and a rich, sweet taste. Popular in South America and Florida.</p>
+                    </div>
+                </div>
+                <div class="variety-card">
+                    <div class="variety-img">🥭</div>
+                    <div class="variety-info">
+                        <h3>Keitt</h3>
+                        <p>A late-season mango with greenish skin even when ripe, sweet flesh, and a small seed.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="recipes">
+        <div class="container">
+            <h2>Delicious Mango Recipes</h2>
+            <div class="recipe-list">
+                <div class="recipe-item">
+                    <h3>Mango Salsa</h3>
+                    <p>Combine diced mango with red onion, jalapeño, cilantro, lime juice, and a pinch of salt for a refreshing topping for fish tacos or grilled chicken.</p>
+                </div>
+                <div class="recipe-item">
+                    <h3>Mango Smoothie</h3>
+                    <p>Blend ripe mango chunks with yogurt, a splash of orange juice, and honey for a nutritious breakfast or snack.</p>
+                </div>
+                <div class="recipe-item">
+                    <h3>Mango Sticky Rice</h3>
+                    <p>This Thai dessert combines sweet glutinous rice with coconut milk and fresh mango slices for a tropical treat.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>© 2025 Magnificent Mangoes - Your ultimate resource for all things mango</p>
+        </div>
+    </footer>
+</body>
+</html>

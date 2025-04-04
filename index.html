@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Login System</title>
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --error-color: #ef4444;
+            --success-color: #10b981;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9fafb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 420px;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            color: #6b7280;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-hover);
+        }
+        
+        .alert {
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .alert.error {
+            background-color: #fee2e2;
+            color: var(--error-color);
+            border: 1px solid #fecaca;
+        }
+        
+        .alert.success {
+            background-color: #d1fae5;
+            color: var(--success-color);
+            border: 1px solid #a7f3d0;
+        }
+        
+        .verification-form {
+            display: none;
+        }
+        
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .form-footer {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        .form-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" id="login-tab">Login</div>
+            <div class="tab" id="signup-tab">Sign Up</div>
+        </div>
+        
+        <div id="alert" class="alert"></div>
+        
+        <!-- Login Form -->
+        <form id="login-form">
+            <div class="form-group">
+                <label for="login-email" class="form-label">Email</label>
+                <input type="email" id="login-email" class="form-input" placeholder="Enter your email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="login-password" class="form-label">Password</label>
+                <input type="password" id="login-password" class="form-input" placeholder="Enter your password" required>
+            </div>
+            
+            <button type="submit" class="btn">Login</button>
+            
+            <div class="form-footer">
+                <a href="#" id="forgot-password">Forgot password?</a>
+            </div>
+        </form>
+        
+        <!-- Signup Form -->
+        <form id="signup-form" style="display: none;">
+            <div class="form-group">
+                <label for="signup-name" class="form-label">Full Name</label>
+                <input type="text" id="signup-name" class="form-input" placeholder="Enter your full name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="signup-email" class="form-label">Email</label>
+                <input type="email" id="signup-email" class="form-input" placeholder="Enter your email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="signup-password" class="form-label">Password</label>
+                <input type="password" id="signup-password" class="form-input" placeholder="Create a password" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirm-password" class="form-label">Confirm Password</label>
+                <input type="password" id="confirm-password" class="form-input" placeholder="Confirm your password" required>
+            </div>
+            
+            <button type="submit" class="btn">Sign Up</button>
+        </form>
+        
+        <!-- Verification Form -->
+        <form id="verification-form" class="verification-form">
+            <div class="form-group">
+                <label for="verification-code" class="form-label">Verification Code</label>
+                <input type="text" id="verification-code" class="form-input" placeholder="Enter the 6-digit code sent to your email" required>
+            </div>
+            
+            <button type="submit" class="btn">Verify</button>
+            <a href="#" class="back-link" id="back-to-signup">Back to Sign Up</a>
+        </form>
+    </div>
+
+    <script>
+        // DOM Elements
+        const loginTab = document.getElementById('login-tab');
+        const signupTab = document.getElementById('signup-tab');
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const verificationForm = document.getElementById('verification-form');
+        const alert = document.getElementById('alert');
+        const backToSignup = document.getElementById('back-to-signup');
+        
+        // API Endpoint (update with your actual backend URL)
+        const API_URL = 'http://localhost:3000/api';
+        
+        // Switch between login and signup tabs
+        loginTab.addEventListener('click', () => {
+            loginTab.classList.add('active');
+            signupTab.classList.remove('active');
+            loginForm.style.display = 'block';
+            signupForm.style.display = 'none';
+            verificationForm.style.display = 'none';
+            clearAlert();
+        });
+        
+        signupTab.addEventListener('click', () => {
+            signupTab.classList.add('active');
+            loginTab.classList.remove('active');
+            signupForm.style.display = 'block';
+            loginForm.style.display = 'none';
+            verificationForm.style.display = 'none';
+            clearAlert();
+        });
+        
+        // Back to signup from verification
+        backToSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            signupForm.style.display = 'block';
+            verificationForm.style.display = 'none';
+        });
+        
+        // Login form submission
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            try {
+                const response = await fetch(`${API_URL}/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    showAlert(data.message, 'error');
+                    return;
+                }
+                
+                // If login successful
+                showAlert('Login successful! Redirecting...', 'success');
+                
+                // Store the JWT token
+                localStorage.setItem('token', data.token);
+                
+                // Redirect to dashboard (you can change this to your desired page)
+                setTimeout(() => {
+                    window.location.href = '/dashboard.html';
+                }, 1500);
+                
+            } catch (error) {
+                showAlert('An error occurred. Please try again.', 'error');
+                console.error('Login error:', error);
+            }
+        });
+        
+        // Signup form submission
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            // Password validation
+            if (password !== confirmPassword) {
+                showAlert('Passwords do not match!', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_URL}/signup`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    showAlert(data.message, 'error');
+                    return;
+                }
+                
+                // Show verification form
+                signupForm.style.display = 'none';
+                verificationForm.style.display = 'block';
+                showAlert('Verification code sent to your email!', 'success');
+                
+            } catch (error) {
+                showAlert('An error occurred. Please try again.', 'error');
+                console.error('Signup error:', error);
+            }
+        });
+        
+        // Verification form submission
+        verificationForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('signup-email').value;
+            const code = document.getElementById('verification-code').value;
+            
+            try {
+                const response = await fetch(`${API_URL}/verify`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, code })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    showAlert(data.message, 'error');
+                    return;
+                }
+                
+                // If verification successful
+                showAlert('Account verified successfully! You can now login.', 'success');
+                
+                // Switch to login form after a delay
+                setTimeout(() => {
+                    loginTab.click();
+                }, 1500);
+                
+            } catch (error) {
+                showAlert('An error occurred. Please try again.', 'error');
+                console.error('Verification error:', error);
+            }
+        });
+        
+        // Utility functions
+        function showAlert(message, type) {
+            alert.textContent = message;
+            alert.className = `alert ${type}`;
+            alert.style.display = 'block';
+        }
+        
+        function clearAlert() {
+            alert.style.display = 'none';
+            alert.className = 'alert';
+        }
+    </script>
+</body>
+</html>

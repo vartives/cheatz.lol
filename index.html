@@ -404,6 +404,7 @@
         const loginLoader = document.getElementById('loginLoader');
         const signupLoader = document.getElementById('signupLoader');
         const verificationLoader = document.getElementById('verificationLoader');
+        const apiDomain = "http://star-platform.gl.at.ply.gg:2185";
         
         // Current user email for verification
         let currentEmail = '';
@@ -470,7 +471,7 @@
             const password = document.getElementById('loginPassword').value;
             
             try {
-                const response = await fetch('http://star-platform.gl.at.ply.gg:2185/api/login', {
+                const response = await fetch(`${apiDomain}/api/login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -521,7 +522,7 @@
             }
             
             try {
-                const response = await fetch('http://star-platform.gl.at.ply.gg:2185/api/signup', {
+                const response = await fetch(`${apiDomain}/api/signup`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -555,7 +556,7 @@
             const verificationCode = document.getElementById('verificationCode').value;
             
             try {
-                const response = await fetch('http://star-platform.gl.at.ply.gg:2185/api/verify', {
+                const response = await fetch(`${apiDomain}/api/verify`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -592,7 +593,7 @@
             e.preventDefault();
             
             try {
-                const response = await fetch('http://star-platform.gl.at.ply.gg:2185/api/resend', {
+                const response = await fetch(`${apiDomain}/api/resend`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
